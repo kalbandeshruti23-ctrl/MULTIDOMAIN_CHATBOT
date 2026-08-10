@@ -1,0 +1,11 @@
+{
+    "model": "distilbert-base-uncased",
+    "validation_accuracy": 1.0,
+    "validation_precision": 1.0,
+    "validation_recall": 1.0,
+    "validation_f1": 1.0,
+    "test_accuracy": 1.0,
+    "test_precision": 1.0,
+    "test_recall": 1.0,
+    "test_f1": 1.0
+}
