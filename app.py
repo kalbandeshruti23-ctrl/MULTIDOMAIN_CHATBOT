@@ -2,7 +2,7 @@
 import os
 import sys
 import streamlit as st
-import base64
+
 
 # ============================================================
 # PROJECT PATH
@@ -20,11 +20,11 @@ if SRC_DIR not in sys.path:
 # ============================================================
 
 try:
-    from predict import (
-        load_model,
-        load_intent_mapping,
-        predict_intent
-    )
+    from predict_transformer import (
+    load_model,
+    load_intent_mapping,
+    predict_intent
+)
 
 except ImportError as e:
     st.error("Unable to import predict.py")
@@ -38,47 +38,7 @@ except ImportError as e:
 
 CONFIDENCE_THRESHOLD = 0.60
 
-# ============================================================
-# BACKGROUND IMAGE
-# ============================================================
 
-def add_bg_from_local(image_file):
-
-    with open(image_file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
-
-    st.markdown(
-        f"""
-        <style>
-
-        .stApp {{
-            background: url("data:image/jpg;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-
-        /* Make containers slightly transparent */
-
-        .main .block-container {{
-            background: rgba(255,255,255,0.82);
-            padding: 2rem;
-            border-radius: 20px;
-        }}
-
-        section[data-testid="stSidebar"] {{
-            background: rgba(20,20,20,0.88);
-        }}
-
-        section[data-testid="stSidebar"] * {{
-            color: white !important;
-        }}
-
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -90,14 +50,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.set_page_config(
-    page_title="Multi-Domain AI Assistant",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
-add_bg_from_local("assets/ai_chat_background.png.png")
 # ============================================================
 # CUSTOM CSS
 # ============================================================
@@ -167,68 +120,7 @@ st.markdown(
         color: #15803d;
         font-weight: 700;
     }
-    .main-header{
-    background: rgba(79,70,229,0.85);
-    backdrop-filter: blur(10px);
-}
 
-.card{
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(8px);
-}
-/* ==========================
-   CHAT TEXT
-========================== */
-
-.stChatMessage {
-    background: rgba(255,255,255,0.95);
-    border-radius: 15px;
-    padding: 12px;
-    margin-bottom: 12px;
-}
-
-/* User and bot message text */
-.stChatMessage p,
-.stChatMessage div,
-.stMarkdown p {
-    color: #000000 !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    line-height: 1.7;
-}
-
-/* Chat input */
-.stChatInput input {
-    font-size: 18px !important;
-    font-weight: 600 !important;
-    color: black !important;
-}
-
-/* Placeholder */
-.stChatInput input::placeholder {
-    color: #555 !important;
-    font-weight: 600;
-}
-
-/* Assistant message */
-[data-testid="stChatMessageContent"] {
-    color: black !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-}
-
-/* User message */
-[data-testid="stChatMessageContent"] p {
-    color: black !important;
-    font-weight: 700 !important;
-}
-
-/* Markdown text */
-.stMarkdown {
-    color: black !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-}
     .status-low {
         color: #b45309;
         font-weight: 700;
