@@ -6,3 +6,8 @@ joblib
 torch
 transformers
 datasets
+
+
+
+sentencepiece
+tokenizers
